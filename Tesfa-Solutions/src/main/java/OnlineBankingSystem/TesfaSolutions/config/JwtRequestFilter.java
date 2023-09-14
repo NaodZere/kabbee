@@ -1,7 +1,7 @@
-package config;
+package OnlineBankingSystem.TesfaSolutions.config;
 
-import config.service.JwtTokenService;
-import config.service.UserService;
+import OnlineBankingSystem.TesfaSolutions.service.JwtTokenService;
+import OnlineBankingSystem.TesfaSolutions.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         this.userService = userService;
     }
 
+//    dsjfgkdfjgkl
 
     @Override
     protected void doFilterInternal(final HttpServletRequest request,
