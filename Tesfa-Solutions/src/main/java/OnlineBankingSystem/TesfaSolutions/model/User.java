@@ -38,21 +38,29 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
+
         return false;
     }
-
+//    @Override
+//
+//    public String getPassword() {
+//        return password;
+//    }
     @Override
     public boolean isAccountNonLocked() {
+
         return false;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
+
         return false;
     }
 
     @Override
     public boolean isEnabled() {
+
         return enabled;
     }
 }
