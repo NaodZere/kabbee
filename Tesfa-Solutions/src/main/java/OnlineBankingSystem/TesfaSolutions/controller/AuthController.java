@@ -1,9 +1,5 @@
 package OnlineBankingSystem.TesfaSolutions.controller;
 
-
-
-
-
 import OnlineBankingSystem.TesfaSolutions.dto.LoginDTO;
 import OnlineBankingSystem.TesfaSolutions.dto.TokenDTO;
 import OnlineBankingSystem.TesfaSolutions.dto.UserDTO;
@@ -34,14 +30,14 @@ public class AuthController {
     }
 
 
-//    @PostMapping("/login")
-//    public TokenDTO login(@RequestBody LoginDTO dto) {
-//        User user = userService.findByUserName(dto.username())
-//                .orElseThrow(LoginException::new);
-//        if (!passwordEncoder.matches(dto.password(), user.getPassword()))
-//           throw new LoginException();
-//        return new TokenDTO(jwtTokenService.generateToken(user));
-//    }
+    @PostMapping("/login")
+    public TokenDTO login(@RequestBody LoginDTO dto) throws LoginException {
+        User user = userService.findByUserName(dto.username())
+                .orElseThrow(LoginException::new);
+        if (!passwordEncoder.matches(dto.password(), user.getPassword()))
+           throw new LoginException();
+        return new TokenDTO(jwtTokenService.generateToken(user));
+    }
 
     private User createUser(UserRegisterDTO dto, Role role) {
         if (userService.findByUserName(dto.username()).isPresent())
