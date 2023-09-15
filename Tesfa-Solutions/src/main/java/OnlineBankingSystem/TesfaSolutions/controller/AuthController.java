@@ -2,13 +2,17 @@ package OnlineBankingSystem.TesfaSolutions.controller;
 
 
 
+
+
 import OnlineBankingSystem.TesfaSolutions.dto.LoginDTO;
 import OnlineBankingSystem.TesfaSolutions.dto.TokenDTO;
+import OnlineBankingSystem.TesfaSolutions.dto.UserDTO;
 import OnlineBankingSystem.TesfaSolutions.dto.UserRegisterDTO;
+import OnlineBankingSystem.TesfaSolutions.exception.UsernameAlreadyExistException;
 import OnlineBankingSystem.TesfaSolutions.model.Role;
+import OnlineBankingSystem.TesfaSolutions.model.User;
 import OnlineBankingSystem.TesfaSolutions.service.JwtTokenService;
 import OnlineBankingSystem.TesfaSolutions.service.UserService;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,17 +42,30 @@ public class AuthController {
 //           throw new LoginException();
 //        return new TokenDTO(jwtTokenService.generateToken(user));
 //    }
-//
-//    private User createUser(UserRegisterDTO dto, Role role) {
-//        if (userService.findByUserName(dto.username()).isPresent())
-//            throw new UsernameAlreadyExistException();
-//        User user = UserRegisterDTO.toUser(dto);
-//        user.setPassword(passwordEncoder.encode(dto.password()));
-//        user.setRole(role);
-//        return userService.save(user);
-//    }
 
+    private User createUser(UserRegisterDTO dto, Role role) {
+        if (userService.findByUserName(dto.username()).isPresent())
+            throw new UsernameAlreadyExistException();
+        User user = UserRegisterDTO.toUser(dto);
+        user.setPassword(passwordEncoder.encode(dto.password()));
+        user.setRole(role);
+        return userService.save(user);
+    }
 
+    @PostMapping("/register/customer")
+    public UserDTO registerCustomer(@RequestBody UserRegisterDTO dto) {
+        return UserDTO.fromUser(createUser(dto, Role.CUSTOMER));
+    }
+
+    @PostMapping("/register/admin")
+    public UserDTO registerAdmin(@RequestBody UserRegisterDTO dto) {
+        return UserDTO.fromUser(createUser(dto, Role.ADMIN));
+    }
+
+    @ExceptionHandler({RuntimeException.class})
+    public String databaseError(RuntimeException exception) {
+        return exception.getMessage();
+    }
 
 
 }
