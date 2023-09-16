@@ -2,9 +2,11 @@ package OnlineBankingSystem.TesfaSolutions.controller;
 
 import OnlineBankingSystem.TesfaSolutions.model.User;
 import OnlineBankingSystem.TesfaSolutions.service.impl.UserServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,5 +34,21 @@ public class AdminController {
     @DeleteMapping("delete/{id}")
     public void deleteUser(@PathVariable Integer id){
         userService.deleteUser(id);
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user){
+        return userService.updateUser(id,user);
+
+    }
+
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<User> getUserByID(@PathVariable("id") int id){
+//        return new ResponseEntity<>(userService.getUserByID(id),HttpStatus.OK );
+//    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> findAllUsers(){
+        return new ResponseEntity<>(userService.findAllUsers(),HttpStatus.OK);
+
     }
 }
