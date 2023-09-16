@@ -29,6 +29,11 @@ public class AdminController {
             return ResponseEntity.notFound().build(); // Return a 404 response if the user is not found
         }
     }
+
+
+    @DeleteMapping("delete/{id}")
+    public void deleteUser(@PathVariable Integer id){
+        userService.deleteUser(id);
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user){
         return userService.updateUser(id,user);
