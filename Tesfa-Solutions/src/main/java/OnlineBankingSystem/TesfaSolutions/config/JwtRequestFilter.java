@@ -1,8 +1,8 @@
 package OnlineBankingSystem.TesfaSolutions.config;
 
 import OnlineBankingSystem.TesfaSolutions.model.User;
-import OnlineBankingSystem.TesfaSolutions.service.JwtTokenService;
-import OnlineBankingSystem.TesfaSolutions.service.UserService;
+import OnlineBankingSystem.TesfaSolutions.service.impl.JwtTokenService;
+import OnlineBankingSystem.TesfaSolutions.service.impl.UserServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,9 +19,9 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtTokenService jwtTokenService;
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public JwtRequestFilter(JwtTokenService jwtTokenService, UserService userService) {
+    public JwtRequestFilter(JwtTokenService jwtTokenService, UserServiceImpl userService) {
         this.jwtTokenService = jwtTokenService;
         this.userService = userService;
     }

@@ -7,23 +7,26 @@ import OnlineBankingSystem.TesfaSolutions.dto.UserRegisterDTO;
 import OnlineBankingSystem.TesfaSolutions.exception.UsernameAlreadyExistException;
 import OnlineBankingSystem.TesfaSolutions.model.Role;
 import OnlineBankingSystem.TesfaSolutions.model.User;
-import OnlineBankingSystem.TesfaSolutions.service.JwtTokenService;
-import OnlineBankingSystem.TesfaSolutions.service.UserService;
+import OnlineBankingSystem.TesfaSolutions.service.impl.JwtTokenService;
+import OnlineBankingSystem.TesfaSolutions.service.impl.UserServiceImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.LoginException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     private final PasswordEncoder passwordEncoder;
 
     private final JwtTokenService jwtTokenService;
 
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder, JwtTokenService jwtTokenService) {
+    public AuthController(UserServiceImpl userService, PasswordEncoder passwordEncoder, JwtTokenService jwtTokenService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenService = jwtTokenService;
@@ -57,6 +60,20 @@ public class AuthController {
     public UserDTO registerAdmin(@RequestBody UserRegisterDTO dto) {
         return UserDTO.fromUser(createUser(dto, Role.ADMIN));
     }
+
+    @GetMapping("admin/{username}")
+    public ResponseEntity<User> findByUsername(@PathVariable String username) {
+        Optional<User> userOptional = userService.findByUserName(username);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build(); // Return a 404 response if the user is not found
+        }
+    }
+
+
 
     @ExceptionHandler({RuntimeException.class})
     public String databaseError(RuntimeException exception) {
