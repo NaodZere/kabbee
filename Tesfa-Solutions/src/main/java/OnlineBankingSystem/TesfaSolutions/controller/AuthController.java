@@ -61,17 +61,7 @@ public class AuthController {
         return UserDTO.fromUser(createUser(dto, Role.ADMIN));
     }
 
-    @GetMapping("admin/{username}")
-    public ResponseEntity<User> findByUsername(@PathVariable String username) {
-        Optional<User> userOptional = userService.findByUserName(username);
 
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build(); // Return a 404 response if the user is not found
-        }
-    }
 
 
 
