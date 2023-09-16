@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public Optional<User> findByUserName(String username) {
+
         return repository.findByUsername(username);
     }
 
@@ -50,6 +52,24 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
+
+
+//    @Override
+//    public User getUserByID(int id) {
+//        Optional<User> user=repository.findById(id);
+//        if(user.isPresent()){
+//            return user.get();
+//        }else{
+//            throw  new RuntimeException("user doesn't exist");
+//        }
+//
+//    }
+
+    @Override
+    public List<User> findAllUsers() {
+        return repository.findAll();
+    }
 
 
 }
