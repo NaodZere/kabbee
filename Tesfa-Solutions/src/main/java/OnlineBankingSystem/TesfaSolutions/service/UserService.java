@@ -11,4 +11,6 @@ public interface UserService {
 
     public Optional<User> findByUserName(String username);
 
+    public void deleteUser(Integer id);
+
 }
