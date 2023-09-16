@@ -1,4 +1,4 @@
-package OnlineBankingSystem.TesfaSolutions.service;
+package OnlineBankingSystem.TesfaSolutions.service.impl;
 
 import OnlineBankingSystem.TesfaSolutions.model.User;
 import com.auth0.jwt.JWT;
