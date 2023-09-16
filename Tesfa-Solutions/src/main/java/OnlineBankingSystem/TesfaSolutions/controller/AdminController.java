@@ -2,12 +2,14 @@ package OnlineBankingSystem.TesfaSolutions.controller;
 
 import OnlineBankingSystem.TesfaSolutions.model.User;
 import OnlineBankingSystem.TesfaSolutions.service.impl.UserServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,5 +31,16 @@ public class AdminController {
         } else {
             return ResponseEntity.notFound().build(); // Return a 404 response if the user is not found
         }
+    }
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<User> getUserByID(@PathVariable("id") int id){
+//        return new ResponseEntity<>(userService.getUserByID(id),HttpStatus.OK );
+//    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> findAllUsers(){
+        return new ResponseEntity<>(userService.findAllUsers(),HttpStatus.OK);
+
     }
 }
