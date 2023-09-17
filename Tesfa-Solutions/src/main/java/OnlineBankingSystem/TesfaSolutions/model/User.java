@@ -28,9 +28,14 @@ public class User implements UserDetails {
     private boolean enabled;
     @Enumerated(EnumType.STRING)
     private Role role;
+    public User(String username){
+        this.username=username;
+    }
+
 
 //    @Embedded
 //    private Address address;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

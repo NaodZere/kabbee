@@ -32,13 +32,14 @@ public class AdminController {
 
 
     @DeleteMapping("delete/{id}")
-    public void deleteUser(@PathVariable Integer id){
+    public void deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user){
-        return userService.updateUser(id,user);
-
     }
+        @PutMapping("/{id}")
+        public ResponseEntity<User> updateUser ( @PathVariable int id, @RequestBody User user){
+            return userService.updateUser(id, user);
+
+        }
 
 
 //    @GetMapping("/{id}")
