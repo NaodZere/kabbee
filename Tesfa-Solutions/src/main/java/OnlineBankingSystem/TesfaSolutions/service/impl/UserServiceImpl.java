@@ -32,6 +32,8 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Integer id) {
         repository.deleteById(id);
 
+    }
+
     @Override
     public ResponseEntity<User> updateUser(int id, User user) {
 

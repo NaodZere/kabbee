@@ -18,6 +18,7 @@ public class AdminController {
     public AdminController(UserServiceImpl userService) {
         this.userService = userService;
     }
+
     @GetMapping("{username}")
     public ResponseEntity<User> findByUsername(@PathVariable String username) {
         Optional<User> userOptional = userService.findByUserName(username);
@@ -32,13 +33,16 @@ public class AdminController {
 
 
     @DeleteMapping("delete/{id}")
-    public void deleteUser(@PathVariable Integer id){
+    public void deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user){
-        return userService.updateUser(id,user);
+
 
     }
+        @PutMapping("/{id}")
+        public ResponseEntity<User> updateUser ( @PathVariable int id, @RequestBody User user){
+            return userService.updateUser(id, user);
+
+        }
 
 
 //    @GetMapping("/{id}")
@@ -46,9 +50,10 @@ public class AdminController {
 //        return new ResponseEntity<>(userService.getUserByID(id),HttpStatus.OK );
 //    }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<User>> findAllUsers(){
-        return new ResponseEntity<>(userService.findAllUsers(),HttpStatus.OK);
+        @GetMapping("/all")
+        public ResponseEntity<List<User>> findAllUsers () {
+            return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
 
+        }
     }
-}
+
