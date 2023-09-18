@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService {
         return repository.findByUsername(username);
     }
 
+    @Override
+    public void deleteUser(Integer id) {
+        repository.deleteById(id);
+
+    }
 
     @Override
     public ResponseEntity<User> updateUser(int id, User user) {
