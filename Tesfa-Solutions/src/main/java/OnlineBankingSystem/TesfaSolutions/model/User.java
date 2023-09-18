@@ -29,8 +29,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @Embedded
-//    private Address address;
+    @Embedded
+    private Address address;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
