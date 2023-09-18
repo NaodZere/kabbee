@@ -33,8 +33,8 @@ public class User implements UserDetails {
     }
 
 
-//    @Embedded
-//    private Address address;
+    @Embedded
+    private Address address;
 
 
     @Override
