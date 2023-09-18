@@ -31,29 +31,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Integer id) {
         repository.deleteById(id);
+
     }
-        @Override
-        public ResponseEntity<User> updateUser ( int id, User user){
 
-            Optional<User> existingUserOptional = repository.findById(id);
+    @Override
+    public ResponseEntity<User> updateUser(int id, User user) {
 
-            if (existingUserOptional.isPresent()) {
-                User existingUser = existingUserOptional.get();
-                existingUser.setFirstName(user.getFirstName());
-                existingUser.setLastName(user.getLastName());
-                existingUser.setUsername(user.getUsername());
-                existingUser.setPassword(user.getPassword());
+        Optional<User> existingUserOptional = repository.findById(id);
 
-                User updatedUser = repository.save(existingUser);
+        if (existingUserOptional.isPresent()) {
+            User existingUser = existingUserOptional.get();
+            existingUser.setFirstName(user.getFirstName());
+            existingUser.setLastName(user.getLastName());
+            existingUser.setUsername(user.getUsername());
+            existingUser.setPassword(user.getPassword());
 
-                // Return the updated user
-                return ResponseEntity.ok(updatedUser);
-            } else {
-                // Handle the case where the user with the given ID doesn't exist
-                // Return a 404 Not Found response or an appropriate response for your use case
-                return ResponseEntity.notFound().build();
-            }
+            User updatedUser = repository.save(existingUser);
+
+            // Return the updated user
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            // Handle the case where the user with the given ID doesn't exist
+            // Return a 404 Not Found response or an appropriate response for your use case
+            return ResponseEntity.notFound().build();
         }
+    }
+
+
 
 
 //    @Override
@@ -67,10 +71,10 @@ public class UserServiceImpl implements UserService {
 //
 //    }
 
-        @Override
-        public List<User> findAllUsers () {
-            return repository.findAll();
-        }
-
-
+    @Override
+    public List<User> findAllUsers() {
+        return repository.findAll();
     }
+
+
+}
