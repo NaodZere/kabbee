@@ -1,12 +1,12 @@
 package OnlineBankingSystem.TesfaSolutions.config;
 
-import OnlineBankingSystem.TesfaSolutions.service.JwtTokenService;
-import OnlineBankingSystem.TesfaSolutions.service.UserService;
+import OnlineBankingSystem.TesfaSolutions.model.User;
+import OnlineBankingSystem.TesfaSolutions.service.impl.JwtTokenService;
+import OnlineBankingSystem.TesfaSolutions.service.impl.UserServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.catalina.User;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,9 +19,9 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtTokenService jwtTokenService;
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public JwtRequestFilter(JwtTokenService jwtTokenService, UserService userService) {
+    public JwtRequestFilter(JwtTokenService jwtTokenService, UserServiceImpl userService) {
         this.jwtTokenService = jwtTokenService;
         this.userService = userService;
     }
@@ -38,16 +38,24 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
             return;
         }
-//        User user = userService.findByUserName(username).get();
-//
-//         set user details on spring security context
-//        final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-//                user, null, user.getAuthorities());
-//        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        // continue with authenticated user
-//        chain.doFilter(request, response);
+
+        final String token = header.substring(7);
+        final String username = jwtTokenService.validateTokenAndGetUsername(token);
+        if (username == null) {
+            // validation failed or token expired
+            chain.doFilter(request, response);
+            return;
+        }
+        User user = userService.findByUserName(username).get();
+
+        // set user details on spring security context
+        final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                user, null, user.getAuthorities());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // continue with authenticated user
+        chain.doFilter(request, response);
 
     }
 }

@@ -1,5 +1,6 @@
 package OnlineBankingSystem.TesfaSolutions.config;
 
+import OnlineBankingSystem.TesfaSolutions.model.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -27,10 +28,16 @@ public class SecurityConfig {
                 .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/admin/**").hasAuthority(getUserAuthority(Role.ADMIN))
+                        .requestMatchers("/customer/**").hasAuthority(getUserAuthority(Role.CUSTOMER))
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    private String getUserAuthority(Role userRole) {
+        return userRole.name();
     }
 
     @Bean

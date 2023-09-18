@@ -1,27 +1,22 @@
 package OnlineBankingSystem.TesfaSolutions.service;
 
-import OnlineBankingSystem.TesfaSolutions.repository.UserRepository;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import OnlineBankingSystem.TesfaSolutions.model.User;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
-@Service
-public class UserService {
-    private final UserRepository repository;
 
-    @Autowired
-    public UserService(UserRepository repository) {
-        this.repository = repository;
-    }
+public interface UserService {
+    public User save(User user);
 
-//    public User save(User user) {
-//        return repository.save(user);
-//    }
-//
-//    public Optional<User> findByUserName(String username) {
-//        return repository.findByUsername(username);
-//    }
+    public Optional<User> findByUserName(String username);
+    public ResponseEntity<User> updateUser(int id, User user);
+   // User getUserByID(int id);
+
+    List<User> findAllUsers();
+
+    public void deleteUser(Integer id);
 
 }
