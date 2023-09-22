@@ -60,16 +60,16 @@ public class UserServiceImpl implements UserService {
 
 
 
-//    @Override
-//    public User getUserByID(int id) {
-//        Optional<User> user=repository.findById(id);
-//        if(user.isPresent()){
-//            return user.get();
-//        }else{
-//            throw  new RuntimeException("user doesn't exist");
-//        }
-//
-//    }
+    @Override
+    public User getUserByID(int id) {
+        Optional<User> user=repository.findById(id);
+        if(user.isPresent()){
+            return user.get();
+        }else{
+            throw  new RuntimeException("user doesn't exist");
+        }
+
+    }
 
     @Override
     public List<User> findAllUsers() {
