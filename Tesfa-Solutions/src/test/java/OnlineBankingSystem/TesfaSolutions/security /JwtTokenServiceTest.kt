@@ -31,7 +31,6 @@ class JwtTokenServiceTest {
         // Validate the token and get the username from it
         val username = jwtTokenService!!.validateTokenAndGetUsername(token)
 
-        // Assert that the username retrieved from the token matches the mock user's username
         Assertions.assertEquals("testUser", username)
     }
 
