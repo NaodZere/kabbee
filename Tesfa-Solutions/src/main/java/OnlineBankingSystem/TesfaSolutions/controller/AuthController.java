@@ -9,13 +9,10 @@ import OnlineBankingSystem.TesfaSolutions.model.Role;
 import OnlineBankingSystem.TesfaSolutions.model.User;
 import OnlineBankingSystem.TesfaSolutions.service.impl.JwtTokenService;
 import OnlineBankingSystem.TesfaSolutions.service.impl.UserServiceImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.LoginException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")

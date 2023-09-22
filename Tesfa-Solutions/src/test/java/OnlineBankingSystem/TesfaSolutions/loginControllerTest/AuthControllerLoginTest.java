@@ -62,7 +62,7 @@ public class AuthControllerLoginTest {
         assertEquals(token,tokenDTO.accessToken());
 
 
-        //assertEquals(token, tokenDTO.getToken());
+//        assertEquals(token, tokenDTO.getToken());
         //assertNotEquals(token, tokenDTO.getToken());
     }
 }
