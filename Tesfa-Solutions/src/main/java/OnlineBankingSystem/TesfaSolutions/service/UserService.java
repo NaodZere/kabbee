@@ -13,7 +13,8 @@ public interface UserService {
 
     public Optional<User> findByUserName(String username);
     public ResponseEntity<User> updateUser(int id, User user);
-   // User getUserByID(int id);
+
+    User getUserByID(int id);
 
     List<User> findAllUsers();
 
