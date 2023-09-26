@@ -19,7 +19,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("{username}")
+    @GetMapping("/{username}")
     public ResponseEntity<User> findByUsername(@PathVariable String username) {
         Optional<User> userOptional = userService.findByUserName(username);
 
@@ -45,10 +45,10 @@ public class AdminController {
         }
 
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<User> getUserByID(@PathVariable("id") int id){
-//        return new ResponseEntity<>(userService.getUserByID(id),HttpStatus.OK );
-//    }
+    @GetMapping("/api/{id}")
+    public ResponseEntity<User> getUserByID(@PathVariable("id") int id){
+        return new ResponseEntity<>(userService.getUserByID(id),HttpStatus.OK );
+    }
 
         @GetMapping("/all")
         public ResponseEntity<List<User>> findAllUsers () {
